@@ -28,7 +28,7 @@ export function HeroSection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6">
-            <Link href="#reservar">Reservá tu cancha</Link>
+            <Link href="/reserva">Reservá tu cancha</Link>
           </Button>
           <Button
             asChild

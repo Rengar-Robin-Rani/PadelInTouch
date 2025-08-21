@@ -5,7 +5,7 @@ import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
-
+import SedeSection from '@/components/SedeSection'
 
 export default async function HomePage() {
   const cookieStore = await cookies()
@@ -17,6 +17,7 @@ export default async function HomePage() {
     <main className="min-h-screen">
       <Navbar />
       <HeroSection />
+      <SedeSection />
       <AboutSection />
       <ContactSection />
       <Footer />

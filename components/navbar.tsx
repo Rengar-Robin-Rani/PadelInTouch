@@ -38,7 +38,7 @@ export function Navbar() {
               </Link>
             ))}
             <Button asChild className="bg-primary hover:bg-primary/90">
-              <Link href="#reservar">Reservá tu cancha</Link>
+              <Link href="/reserva">Reservá tu cancha</Link>
             </Button>
           </div>
 

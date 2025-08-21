@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { Icons } from "@/components/icons"
+import { Button } from "@/components/ui/button"
+import { MessageCircle, Instagram , Facebook } from "lucide-react"
 
 export function Footer() {
   return (
@@ -18,17 +20,32 @@ export function Footer() {
               Las mejores canchas de pádel en Rosario. Superficie de alto rendimiento, iluminación profesional y una
               comunidad apasionada por el deporte.
             </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-background/60 hover:text-primary transition-colors">
-                <Icons.Facebook />
-              </Link>
-              <Link href="#" className="text-background/60 hover:text-primary transition-colors">
-                <Icons.Instagram />
-              </Link>
-              <Link href="#" className="text-background/60 hover:text-primary transition-colors">
-                <Icons.Twitter />
-              </Link>
-            </div>
+                    <div className="flex space-x-4">
+                    <Button
+                        size="lg"
+                        variant="default"
+                        className=" hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors bg-gray-600"
+                    >
+                        <Facebook className="h-4 w-4" />
+                    </Button>
+                    <a href="https://www.instagram.com/ls.negociosinmobiliarios/" target="_blank">  
+                    <Button
+                        size="lg"
+                        variant="default"
+                        className="hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all bg-gray-600">
+                        <Instagram className="h-4 w-4" />
+                    </Button>
+                    </a>
+                    <a target="blank" href="https://wa.me/5493411234567">
+                        <Button
+                        size="lg"
+                        variant="default"
+                        className="hover:bg-green-600 hover:text-white hover:border-green-600 transition-colors  bg-gray-600"
+                        >
+                        <MessageCircle className="h-4 w-4" />
+                        </Button>
+                    </a>
+                    </div>
           </div>
 
           {/* Quick Links */}

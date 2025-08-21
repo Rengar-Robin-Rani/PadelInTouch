@@ -10,6 +10,15 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { Icons } from "@/components/icons"
+import { 
+    Phone, 
+    Mail,
+    MapPin,
+    MessageCircle,
+    Facebook, 
+    Instagram, 
+} from "lucide-react";
+
 
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -116,104 +125,124 @@ export function ContactSection() {
   ]
 
   return (
-    <section id="contacto" className="py-20 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Contacto</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            ¿Tenés alguna consulta? Escribinos y te responderemos a la brevedad.
-          </p>
-        </div>
+    <section id="contacto" className="max-w-7xl mx-auto bg-white">
+        <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Contactanos</h2>
+                <p className="text-xl text-gray-600">¿Tenés alguna consulta? Dejanos tu mensaje y te contactaremos a la brevedad.</p>
+            </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">Información de contacto</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {contactInfo.map((info, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <info.icon />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                <h3 className="text-2xl font-semibold mb-6">Información de Contacto</h3>
+                <div className="space-y-6">
+                    <div className="flex items-start">
+                    <MapPin className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
+                    <div>
+                        <h4 className="font-semibold">Dirección</h4>
+                        <p className="text-gray-600">Av. Pellegrini 1234, Rosario, Santa Fe</p>
+                    </div>
+                    </div>
+                    <div className="flex items-start">
+                    <Phone className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
+                    <div>
+                        <h4 className="font-semibold">Teléfono</h4>
+                        <p className="text-gray-600">+54 341 279-7316</p>
+                    </div>
+                    </div>
+                    <div className="flex items-start">
+                    <Mail className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
+                    <div>
+                        <h4 className="font-semibold">Email</h4>
+                        <p className="text-gray-600">Inmobiliariasenmache@gmail.com</p>
+                    </div>
+                    </div>
+                    <div className="flex items-start">
+                    <MessageCircle className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
+                    <div>
+                        <h4 className="font-semibold">WhatsApp</h4>
+                        <p className="text-gray-600">+54 341 279-7316</p>
+                    </div>
+                    </div>
+                </div>
+
+                <div className="mt-8">
+                    <h4 className="font-semibold mb-4">Horarios de Atención</h4>
+                    <div className="text-gray-600">
+                    <p>Lunes a Viernes: 9:00 - 18:00</p>
+                    <p>Sábados: 9:00 - 13:00</p>
+                    <p>Domingos: Cerrado</p>
+                    </div>
+                </div>
+
+                <div className="mt-8">
+                    <h4 className="font-semibold mb-4">Seguinos en Redes</h4>
+                    <div className="flex space-x-4">
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        className="hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors bg-transparent"
+                    >
+                        <Facebook className="h-4 w-4" />
+                    </Button>
+                    <a href="https://www.instagram.com/ls.negociosinmobiliarios/" target="_blank">  
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        className="hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all bg-transparent"
+                    >
+                        <Instagram className="h-4 w-4" />
+                    </Button>
+                    </a>
+                    <a target="blank" href="https://wa.me/5493411234567">
+                        <Button
+                        size="sm"
+                        variant="outline"
+                        className="hover:bg-green-600 hover:text-white hover:border-green-600 transition-colors bg-transparent"
+                        >
+                        <MessageCircle className="h-4 w-4" />
+                        </Button>
+                    </a>
+                    </div>
+                </div>
+                </div>
+
+                <div>
+                <Card className="p-6">
+                    <h3 className="text-2xl font-semibold mb-6">Envianos un Mensaje</h3>
+                    <form className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                        <label className="block text-sm font-medium mb-2">Nombre</label>
+                        <Input type="text" minLength={3} maxLength={50} required placeholder="Tu nombre" />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-white mb-1">{info.title}</h4>
-                          <p className="text-white font-medium">{info.content}</p>
-                          <p className="text-gray-300 text-sm">{info.subContent}</p>
+                        <label className="block text-sm font-medium mb-2">Apellido</label>
+                        <Input type="text" minLength={3} maxLength={50} required placeholder="Tu apellido" />
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-2">Email</label>
+                        <Input type="email" minLength={3} maxLength={50} required placeholder="tu@email.com" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-2">Teléfono</label>
+                        <Input type="number" pattern="[0-9],{7,15}" required placeholder="Tu teléfono" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-2">Mensaje</label>
+                        <Textarea rows={4} minLength={10} maxLength={500} required placeholder="Contanos en qué podemos ayudarte..." />
+                    </div>
+                    <Button className="w-full" size="lg">
+                        Enviar Mensaje
+                    </Button>
+                    </form>
+                </Card>
+                </div>
             </div>
-          </div>
-
-          {/* Contact Form */}
-          <div>
-            <Card className="bg-gray-200">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">Envianos un mensaje</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={onSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label>Nombre completo *</Label>
-                    <Input
-                      placeholder="Tu nombre completo"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                    />
-                    {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className=" space-y-2">
-                      <Label>Email</Label>
-                      <Input
-                        placeholder="tu@email.com"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                      />
-                      {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-                    </div>
-
-                    <div className="space-y-2  ">
-                      <Label>Teléfono</Label>
-                      <Input
-                        placeholder="Tu teléfono"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 ">
-                    <Label>Mensaje *</Label>
-                    <Textarea
-                      placeholder="Escribí tu consulta aquí..."
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) => handleInputChange("message", e.target.value)}
-                    />
-                    {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
-                  </div>
-
-                  <Button type="submit" disabled={isSubmitting} className="w-full bg-black/30" size="lg">
-                    <Icons.Send />
-                    {isSubmitting ? "Enviando..." : "Enviar mensaje"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </div>
-
-      <div className="mt-16 max-w-7xl mx-auto">
+            
+      <div className="mt-16 max-w-7xl mx-auto mb-16 ">
         <Card className="overflow-hidden mx-4 sm:mx-6 lg:mx-8">
           <CardContent className="">
             <div className="h-96 bg-muted/50 flex items-center justify-center relative">

@@ -47,15 +47,15 @@ export function AboutSection() {
                 <div className="w-16 h-16 bg-black/20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <feature.icon />
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-3">{feature.title}</h3>
-                <p className="text-white text-sm leading-relaxed">{feature.description}</p>
+                <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
+                <p className=" text-sm leading-relaxed">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Champion highlight */}
-        <div className="bg-primary/30 rounded-2xl p-8 md:p-12 text-center border border-primary/10">
+        <div className="rounded-2xl p-8 md:p-12 text-center border border-primary/10">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-center mb-6">
               <div className="w-20 h-20 bg-black/30 rounded-full flex items-center justify-center">
