@@ -7,7 +7,7 @@
   /* Updated color tokens to match Lavalle Padel Club sporty orange theme */
   --background: oklch(1 0 0); /* Pure white */
   --foreground: oklch(0.298 0.013 258.338); /* Dark gray #4b5563 */
-  --card: oklch(0.985 0.017 83.915); /* Light cream #fffbeb */
+  --card: oklch(0.55 0.15 240); /* Light cream #fffbeb */
   --card-foreground: oklch(0.298 0.013 258.338); /* Dark gray */
   --popover: oklch(1 0 0); /* White */
   --popover-foreground: oklch(0.298 0.013 258.338); /* Dark gray */
@@ -23,7 +23,7 @@
   --destructive-foreground: oklch(1 0 0); /* White */
   --border: oklch(0.922 0.013 258.338); /* Light gray #e5e7eb */
   --input: oklch(1 0 0); /* White */
-  --ring: oklch(0.55 0.15 240 / 0.5); /* Semi-transparent blue */
+  --ring: oklch(0.55 0.15 240); /* Semi-transparent blue */
   --chart-1: oklch(0.55 0.15 240); /* Primary blue */
   --chart-2: oklch(0.65 0.12 240); /* Secondary blue */
   --chart-3: oklch(0.298 0.013 258.338); /* Dark gray */
@@ -44,7 +44,7 @@
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
+  --card-foreground: oklch(98.511% 0.00011 271.152);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.65 0.12 240); /* Brighter blue for dark mode */

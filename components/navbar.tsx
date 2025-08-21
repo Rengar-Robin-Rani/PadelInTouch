@@ -11,7 +11,6 @@ export function Navbar() {
   const navItems = [
     { href: "#inicio", label: "Inicio" },
     { href: "#sobre-nosotros", label: "Sobre nosotros" },
-    { href: "#reservar", label: "Reservar" },
     { href: "#contacto", label: "Contacto" },
   ]
 

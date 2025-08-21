@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`${workSans.variable} ${openSans.variable} antialiased`}>
+    <html lang="es" className={`${workSans.variable} ${openSans.variable} antialiased scroll-smooth `}>
       <body className="font-sans">
         {children}
         <Toaster />

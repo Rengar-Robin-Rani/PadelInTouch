@@ -132,16 +132,16 @@ export function ContactSection() {
               <h3 className="text-2xl font-bold text-foreground mb-6">Información de contacto</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {contactInfo.map((info, index) => (
-                  <Card key={index} className="hover:shadow-md transition-shadow duration-200">
+                  <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                           <info.icon />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
-                          <p className="text-foreground font-medium">{info.content}</p>
-                          <p className="text-muted-foreground text-sm">{info.subContent}</p>
+                          <h4 className="font-semibold text-white mb-1">{info.title}</h4>
+                          <p className="text-white font-medium">{info.content}</p>
+                          <p className="text-gray-300 text-sm">{info.subContent}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -153,7 +153,7 @@ export function ContactSection() {
 
           {/* Contact Form */}
           <div>
-            <Card>
+            <Card className="bg-gray-200">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold">Envianos un mensaje</CardTitle>
               </CardHeader>
@@ -170,7 +170,7 @@ export function ContactSection() {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
+                    <div className=" space-y-2">
                       <Label>Email</Label>
                       <Input
                         placeholder="tu@email.com"
@@ -181,7 +181,7 @@ export function ContactSection() {
                       {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-2  ">
                       <Label>Teléfono</Label>
                       <Input
                         placeholder="Tu teléfono"
@@ -191,7 +191,7 @@ export function ContactSection() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 ">
                     <Label>Mensaje *</Label>
                     <Textarea
                       placeholder="Escribí tu consulta aquí..."
@@ -202,7 +202,7 @@ export function ContactSection() {
                     {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
                   </div>
 
-                  <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
+                  <Button type="submit" disabled={isSubmitting} className="w-full bg-black/30" size="lg">
                     <Icons.Send />
                     {isSubmitting ? "Enviando..." : "Enviar mensaje"}
                   </Button>
@@ -213,17 +213,18 @@ export function ContactSection() {
         </div>
       </div>
 
-      <div className="mt-16">
+      <div className="mt-16 max-w-7xl mx-auto">
         <Card className="overflow-hidden mx-4 sm:mx-6 lg:mx-8">
-          <CardContent className="p-0">
+          <CardContent className="">
             <div className="h-96 bg-muted/50 flex items-center justify-center relative">
-              <div className="text-center">
-                <Icons.MapPin />
-                <p className="text-muted-foreground font-medium text-lg">Mapa interactivo</p>
-                <p className="text-muted-foreground">Lavalle 123, Rosario, Santa Fe</p>
-              </div>
-              {/* You can replace this with an actual embedded map */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
+                <iframe
+                  style={{ border: 0}}
+                  id="map"
+                  src="https://www.google.com/maps/d/u/0/embed?mid=1sAZWbdNbo9cbN6Pv_WGXOF-TlkGQ2vE&ehbc=2E312F"
+                  width="100%"
+                  height="100%"
+                  loading="lazy"
+                ></iframe>
             </div>
           </CardContent>
         </Card>
