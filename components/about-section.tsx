@@ -55,7 +55,7 @@ export function AboutSection() {
         </div>
 
         {/* Champion highlight */}
-        <div className="rounded-2xl p-8 md:p-12 text-center border border-primary/10">
+        <div className=" hover:shadow-lg transition-shadow duration-300 rounded-2xl p-8 md:p-12 text-center border border-primary/10">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-center mb-6">
               <div className="w-20 h-20 bg-black/30 rounded-full flex items-center justify-center">

@@ -23,7 +23,7 @@ export function Navbar() {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">L</span>
             </div>
-            <span className="font-bold text-xl text-foreground">Lavalle Padel Club</span>
+            <span className="font-bold text-xl text-foreground">Lavalle PadelClub</span>
           </Link>
 
           {/* Desktop Navigation */}
