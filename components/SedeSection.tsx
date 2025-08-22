@@ -35,20 +35,20 @@ export default function SedeSection() {
 
                 <div className="space-y-3 text-slate-600 flex-grow">
                   <div className="flex items-start space-x-2">
-                    <MapPin className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <span>San Nicolás 965. Rosario, Santa Fe</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Phone className="h-5 w-5 text-emerald-600" />
+                    <Phone className="h-5 w-5 text-primary" />
                     <span>341-5761895</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Clock className="h-5 w-5 text-emerald-600" />
+                    <Clock className="h-5 w-5 text-primary" />
                     <span>Todos los días | 8:00am - 12:00am</span>
                   </div>
                 </div>
                 <Link href="/reservar">
-                  <Button className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700">
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/80 transition-colors duration-200">
                     Reservar
                   </Button>
                 </Link>
@@ -72,21 +72,21 @@ export default function SedeSection() {
 
                 <div className="space-y-3 text-slate-600 flex-grow">
                   <div className="flex items-start space-x-2">
-                    <MapPin className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <span>Lavalle 1546. Rosario, Santa Fe</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Phone className="h-5 w-5 text-emerald-600" />
+                    <Phone className="h-5 w-5 text-primary" />
                     <span>341 4307366</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Clock className="h-5 w-5 text-emerald-600" />
+                    <Clock className="h-5 w-5 text-primary" />
                     <span>Lun-Vie: 8:00am - 00:00am | Sáb-Dom: 9:00am - 12:00am</span>
                   </div>
                 </div>
 
                 <Link href="/reservar">
-                  <Button className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700">
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/80 transition-colors duration-200">
                     Reservar
                   </Button>
                 </Link>
@@ -111,21 +111,21 @@ export default function SedeSection() {
 
                 <div className="space-y-3 text-slate-600 flex-grow">
                   <div className="flex items-start space-x-2">
-                    <MapPin className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <span>Laprida 2252. Rosario, Santa Fe</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Phone className="h-5 w-5 text-emerald-600" />
+                    <Phone className="h-5 w-5 text-primary" />
                     <span>341 576-1895</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Clock className="h-5 w-5 text-emerald-600" />
+                    <Clock className="h-5 w-5 text-primary" />
                     <span>Todos los días | 8:00am - 12:00am</span>
                   </div>
                 </div>
 
                 <Link href="/reservar">
-                  <Button className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700">
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/80 transition-colors duration-200">
                     Reservar
                   </Button>
                 </Link>

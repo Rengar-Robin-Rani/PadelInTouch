@@ -125,7 +125,7 @@ export function ContactSection() {
   ]
 
   return (
-    <section id="contacto" className="max-w-7xl mx-auto bg-white">
+    <section id="contacto" className="max-w-7xl mt-32 mx-auto bg-white">
         <div className="container mx-auto px-4">
             <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Contactanos</h2>
@@ -147,21 +147,21 @@ export function ContactSection() {
                     <Phone className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
                     <div>
                         <h4 className="font-semibold">Teléfono</h4>
-                        <p className="text-gray-600">+54 341 279-7316</p>
+                        <p className="text-gray-600">+54 341 221-1335</p>
                     </div>
                     </div>
                     <div className="flex items-start">
                     <Mail className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
                     <div>
                         <h4 className="font-semibold">Email</h4>
-                        <p className="text-gray-600">Inmobiliariasenmache@gmail.com</p>
+                        <p className="text-gray-600">Lavallepadelclub@gmail.com</p>
                     </div>
                     </div>
                     <div className="flex items-start">
                     <MessageCircle className="h-6 w-6 text-[#4F6372]-600 mr-4 mt-1" />
                     <div>
                         <h4 className="font-semibold">WhatsApp</h4>
-                        <p className="text-gray-600">+54 341 279-7316</p>
+                        <p className="text-gray-600">+54 341 221-1335</p>
                     </div>
                     </div>
                 </div>
@@ -185,14 +185,14 @@ export function ContactSection() {
                     >
                         <Facebook className="h-4 w-4" />
                     </Button>
-                    <a href="https://www.instagram.com/ls.negociosinmobiliarios/" target="_blank">  
-                    <Button
-                        size="sm"
-                        variant="outline"
-                        className="hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all bg-transparent"
-                    >
-                        <Instagram className="h-4 w-4" />
-                    </Button>
+                    <a href="#" target="_blank">  
+                      <Button
+                          size="sm"
+                          variant="outline"
+                          className="hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all bg-transparent"
+                            >
+                          <Instagram className="h-4 w-4" />
+                      </Button>
                     </a>
                     <a target="blank" href="https://wa.me/5493411234567">
                         <Button

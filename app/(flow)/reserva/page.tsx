@@ -15,10 +15,10 @@ interface Club {
   id: string;        // UUID
   name: string;
   address?: string | null;
-  phone?: string;    // opcional (para UI)
-  image?: string;    // opcional (para UI)
-  courtsCount?: number; // opcional (para UI)
-  hours?: string;       // opcional (para UI)
+  phone?: string | null;
+  image_url?: string | null;
+  courtsCount?: number;
+  hours?: string;
 }
 
 interface Court {
@@ -30,7 +30,6 @@ interface Court {
 interface AvailabilityItem {
   startTime: string; // "HH:mm"
   endTime: string;   // "HH:mm"
-  // price?: number;  // si tu endpoint lo devuelve, lo podés mostrar
 }
 
 export default function ReservarPage() {
@@ -41,7 +40,11 @@ export default function ReservarPage() {
   const [locations, setLocations] = useState<Club[]>([]);
   const [courts, setCourts] = useState<Court[]>([]);
   const [availableSlots, setAvailableSlots] = useState<AvailabilityItem[]>([]);
-  const [loading, setLoading] = useState(false);
+
+  // ⬇️ Flags de carga separados para evitar saltos de layout
+  const [loadingClubs, setLoadingClubs] = useState(false);
+  const [loadingCourts, setLoadingCourts] = useState(false);
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   // Form data
   const [selectedLocation, setSelectedLocation] = useState<Club | null>(null);
@@ -50,18 +53,18 @@ export default function ReservarPage() {
   const [selectedSlot, setSelectedSlot] = useState<AvailabilityItem | null>(null);
   const [userDetails, setUserDetails] = useState({ fullName: "", email: "", phone: "" });
 
-  // util: asigna imagen según nombre (ajusta paths si usas otras rutas)
+  // Fallback para imágenes locales si image_url está vacío
   function imageFor(name: string) {
-    const n = name.toLowerCase();
-    if (n.includes("centro")) return "/branches/centro.jpg";
-    if (n.includes("norte")) return "/branches/norte.jpg";
-    if (n.includes("sur")) return "/branches/sur.jpg";
-    return "/branches/default.jpg"; // opcional
+    const n = (name || "").toLowerCase();
+    if (n.includes("abasto")) return "/branches/abasto.jpg";
+    if (n.includes("center") || n.includes("centro")) return "/branches/centro.jpg";
+    return "/branches/default.jpg";
   }
 
   // Cargar sedes (clubs)
   useEffect(() => {
     loadLocations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Cargar canchas por club
@@ -83,17 +86,16 @@ export default function ReservarPage() {
   }, [selectedLocation, selectedCourt, selectedDate]);
 
   async function loadLocations() {
-    setLoading(true);
+    setLoadingClubs(true);
     try {
-      // GET /api/clubs -> { clubs: [{ id, name, address, ... }] }
       const res = await fetch("/api/clubs", { cache: "no-store" });
+      if (!res.ok) throw new Error("No se pudieron cargar las sucursales");
       const data = await res.json();
       const base: Club[] = Array.isArray(data?.clubs) ? data.clubs : [];
 
-      // enriquecemos con imagen (y opcionales para UI)
       const enriched: Club[] = base.map((l) => ({
         ...l,
-        image: l.image ?? imageFor(l.name),
+        image_url: l.image_url ?? imageFor(l.name),
       }));
 
       setLocations(enriched);
@@ -101,15 +103,15 @@ export default function ReservarPage() {
       console.error("Error loading clubs:", error);
       setLocations([]);
     } finally {
-      setLoading(false);
+      setLoadingClubs(false);
     }
   }
 
   async function loadCourts(clubId: string) {
-    setLoading(true);
+    setLoadingCourts(true);
     try {
-      // GET /api/courts?clubId=UUID -> { courts: [{ id, name, club_id }] }
       const res = await fetch(`/api/courts?clubId=${clubId}`, { cache: "no-store" });
+      if (!res.ok) throw new Error("No se pudieron cargar las canchas");
       const data = await res.json();
       const rows: Court[] = Array.isArray(data?.courts) ? data.courts : [];
       setCourts(rows);
@@ -117,14 +119,13 @@ export default function ReservarPage() {
       console.error("Error loading courts:", error);
       setCourts([]);
     } finally {
-      setLoading(false);
+      setLoadingCourts(false);
     }
   }
 
   async function loadAvailableSlots(clubId: string, courtId: string, date: string) {
-    setLoading(true);
+    setLoadingSlots(true);
     try {
-      // GET /api/availability?clubId=...&courtId=...&date=YYYY-MM-DD
       const res = await fetch(`/api/availability?clubId=${clubId}&courtId=${courtId}&date=${date}`, { cache: "no-store" });
       if (!res.ok) throw new Error("No se pudo cargar la disponibilidad");
       const arr = await res.json();
@@ -134,13 +135,13 @@ export default function ReservarPage() {
       console.error("Error loading availability:", error);
       setAvailableSlots([]);
     } finally {
-      setLoading(false);
+      setLoadingSlots(false);
     }
   }
 
   const nextStep = () => setStep((s) => Math.min(4, s + 1));
   const prevStep = () => setStep((s) => Math.max(1, s - 1));
-  const formatTime = (time: string) => time.slice(0, 5); // "HH:mm"
+  const formatTime = (time: string) => time.slice(0, 5);
 
   const getTomorrowDate = () => {
     const tomorrow = new Date();
@@ -151,16 +152,16 @@ export default function ReservarPage() {
   const handleProceedToPayment = async () => {
     if (!selectedLocation || !selectedCourt || !selectedDate || !selectedSlot) return;
 
-    setLoading(true);
+    // Podrías agregar un loading específico de pago si querés:
+    // setLoadingPay(true)
     try {
-      // Adaptado a Supabase: courtId es UUID (string), fecha/hora local; createReservation hace la conversión y el RPC.
       const payload: ReservationData = {
         courtId: selectedCourt.id,
-        date: selectedDate,                      // "YYYY-MM-DD" local
-        startTime: selectedSlot.startTime,       // "HH:mm" local
-        endTime: selectedSlot.endTime,           // "HH:mm" local
-        userDetails,
-        totalAmount: 15000,                      // opcional (el precio real viene del slot en DB)
+        date: selectedDate,
+        startTime: selectedSlot.startTime,
+        endTime: selectedSlot.endTime,
+        userDetails: { ...userDetails },
+        totalAmount: 15000,
       };
 
       const result = await createReservation(payload);
@@ -181,7 +182,7 @@ export default function ReservarPage() {
       console.error("Error creating reservation:", error);
       alert("Error al crear la reserva. Por favor, intentá nuevamente.");
     } finally {
-      setLoading(false);
+      // setLoadingPay(false)
     }
   };
 
@@ -234,10 +235,10 @@ export default function ReservarPage() {
             {/* Step 1: Sucursal (Club) */}
             {step === 1 && (
               <div className="space-y-4">
-                {loading ? (
+                {loadingClubs ? (
                   <div className="text-center py-8">Cargando sucursales...</div>
                 ) : (
-                  <div className="grid md:grid-cols-3 gap-6">
+                  <div className="grid md:grid-cols-3 gap-6 min-h-[16rem]">
                     {locations.map((loc) => (
                       <SedeCard
                         key={loc.id}
@@ -246,14 +247,16 @@ export default function ReservarPage() {
                         onSelect={(id: string) => {
                           const l = locations.find((x) => x.id === id) || null;
                           setSelectedLocation(l);
+                          // reset dependientes
                           setSelectedCourt(null);
                           setSelectedDate("");
                           setSelectedSlot(null);
+                          // no avanzar de paso aquí
                         }}
                         sede={{
                           id: loc.id,
                           nombre: loc.name,
-                          imagen: loc.image ?? imageFor(loc.name),
+                          imagen: (loc.image_url || imageFor(loc.name)) as string,
                           direccion: loc.address ?? "",
                           telefono: loc.phone ?? "",
                           horario: loc.hours,
@@ -274,6 +277,12 @@ export default function ReservarPage() {
                     Sucursal: <strong>{selectedLocation?.name ?? "—"}</strong>
                   </p>
                 </div>
+
+                {/* Hint de carga local sin romper layout */}
+                {loadingCourts && (
+                  <div className="text-sm text-slate-500">Cargando canchas…</div>
+                )}
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="date">Fecha de la reserva</Label>
@@ -323,9 +332,12 @@ export default function ReservarPage() {
                     Fecha: <strong>{selectedDate || "—"}</strong>
                   </p>
                 </div>
-                {loading ? (
-                  <div className="text-center py-8">Cargando horarios disponibles...</div>
-                ) : availableSlots.length > 0 ? (
+
+                {loadingSlots && (
+                  <div className="text-sm text-slate-500">Cargando horarios…</div>
+                )}
+
+                {availableSlots.length > 0 ? (
                   <div className="grid md:grid-cols-3 gap-3">
                     {availableSlots.map((slot, index) => (
                       <div
@@ -344,11 +356,11 @@ export default function ReservarPage() {
                       </div>
                     ))}
                   </div>
-                ) : (
+                ) : !loadingSlots ? (
                   <div className="text-center py-8 text-slate-600">
                     No hay horarios disponibles para esta fecha.
                   </div>
-                )}
+                ) : null}
               </div>
             )}
 
@@ -381,7 +393,7 @@ export default function ReservarPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">Email (opcional)</Label>
                     <Input
                       id="email"
                       type="email"
@@ -421,12 +433,13 @@ export default function ReservarPage() {
 
           {step < 4 ? (
             <Button
-              onClick={nextStep}
-              disabled={
-                (step === 1 && !selectedLocation) ||
-                (step === 2 && (!selectedDate || !selectedCourt)) ||
-                (step === 3 && !selectedSlot)
-              }
+              onClick={() => {
+                // Validaciones por paso
+                if (step === 1 && !selectedLocation) return;
+                if (step === 2 && (!selectedDate || !selectedCourt)) return;
+                if (step === 3 && !selectedSlot) return;
+                nextStep();
+              }}
               className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700"
             >
               <span>Siguiente</span>
@@ -435,11 +448,11 @@ export default function ReservarPage() {
           ) : (
             <Button
               onClick={handleProceedToPayment}
-              disabled={!userDetails.fullName || !userDetails.phone || loading}
+              disabled={!userDetails.fullName || !userDetails.phone}
               className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700"
             >
               <CreditCard className="h-4 w-4" />
-              <span>{loading ? "Creando reserva..." : "Proceder al Pago"}</span>
+              <span>Proceder al Pago</span>
             </Button>
           )}
         </div>

@@ -29,13 +29,13 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
+            <Link
                 key={item.href}
                 href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+                className="relative text-muted-foreground hover:text-foreground transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full after:rounded-full after:animate-pulse"
               >
                 {item.label}
-              </Link>
+            </Link>
             ))}
             <Button asChild className="bg-primary hover:bg-primary/90">
               <Link href="/reserva">Reservá tu cancha</Link>
