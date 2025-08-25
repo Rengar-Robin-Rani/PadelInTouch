@@ -9,6 +9,11 @@ import { Label } from "@/components/ui/label";
 import { MapPin, Calendar, Clock, User, CreditCard, ArrowRight } from "lucide-react";
 import { createReservation, type ReservationData } from "@/lib/reservations-supabase";
 import SedeCard from "@/components/SedeCard";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { es as esLocale } from "date-fns/locale";
+import { startOfToday, format as formatDate } from "date-fns";
+
 
 // ==== Tipos mapeados a tu API Supabase ====
 interface Club {
@@ -202,13 +207,13 @@ export default function ReservarPage() {
               <div key={stepNumber} className="flex items-center">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
-                    step >= stepNumber ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                    step >= stepNumber ? "bg-primary text-white" : "bg-slate-200 text-slate-600"
                   }`}
                 >
                   {stepNumber}
                 </div>
                 {stepNumber < 4 && (
-                  <div className={`w-12 h-1 mx-2 ${step > stepNumber ? "bg-emerald-600" : "bg-slate-200"}`} />
+                  <div className={`w-12 h-1 mx-2 ${step > stepNumber ? "bg-primary" : "bg-slate-200"}`} />
                 )}
               </div>
             ))}
@@ -219,10 +224,10 @@ export default function ReservarPage() {
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              {step === 1 && <MapPin className="h-5 w-5 text-emerald-600" />}
-              {step === 2 && <Calendar className="h-5 w-5 text-emerald-600" />}
-              {step === 3 && <Clock className="h-5 w-5 text-emerald-600" />}
-              {step === 4 && <User className="h-5 w-5 text-emerald-600" />}
+              {step === 1 && <MapPin className="h-5 w-5 text-primary" />}
+              {step === 2 && <Calendar className="h-5 w-5 text-primary" />}
+              {step === 3 && <Clock className="h-5 w-5 text-primary" />}
+              {step === 4 && <User className="h-5 w-5 text-primary" />}
               <span>
                 {step === 1 && "Seleccionar Sucursal"}
                 {step === 2 && "Elegir Fecha y Cancha"}
@@ -283,23 +288,40 @@ export default function ReservarPage() {
                   <div className="text-sm text-slate-500">Cargando canchas…</div>
                 )}
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 items-start">
+                  {/* Calendario inline (fijo en pantalla) */}
                   <div>
-                    <Label htmlFor="date">Fecha de la reserva</Label>
-                    <Input
-                      id="date"
-                      type="date"
-                      min={getTomorrowDate()}
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="mt-1"
-                    />
+                    <Label>Fecha de la reserva</Label>
+                    <div className="flex mx-auto mt-2 p-2 rounded-lg border border-slate-200">
+                      <DayPicker
+                        mode="single"
+                        locale={esLocale}
+                        selected={selectedDate ? new Date(selectedDate + "T00:00:00") : undefined}
+                        onSelect={(date) => {
+                          if (date) {
+                            // Mantener formato "YYYY-MM-DD" para el backend
+                            setSelectedDate(formatDate(date, "yyyy-MM-dd"));
+                          } else {
+                            setSelectedDate("");
+                          }
+                          // Si cambiás la fecha, reseteá el horario elegido
+                          setSelectedSlot(null);
+                        }}
+                        // Bloqueá fechas anteriores a mañana (igual que tu min original)
+                        disabled={{ before: startOfToday() }}
+                        // Un poco de UX: enfoque inicial en hoy/mañana
+                        defaultMonth={selectedDate ? new Date(selectedDate + "T00:00:00") : startOfToday()}
+                        className="mx-auto"
+                      />
+                    </div>
                   </div>
+
+                  {/* Selector de cancha */}
                   <div>
                     <Label htmlFor="court">Cancha</Label>
                     <select
                       id="court"
-                      className="w-full mt-1 p-2 border border-slate-300 rounded-md"
+                      className="w-full mt-2 p-2 border border-slate-300 rounded-md"
                       value={selectedCourt?.id || ""}
                       onChange={(e) => {
                         const id = e.target.value;
@@ -316,10 +338,18 @@ export default function ReservarPage() {
                         </option>
                       ))}
                     </select>
+
+                    {/* (Opcional) tip si no hay canchas */}
+                    {!courts.length && !loadingCourts && (
+                      <p className="text-xs text-slate-500 mt-2">
+                        Elegí una sucursal en el paso anterior para cargar sus canchas.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
             )}
+
 
             {/* Step 3: Horario */}
             {step === 3 && (
@@ -440,7 +470,7 @@ export default function ReservarPage() {
                 if (step === 3 && !selectedSlot) return;
                 nextStep();
               }}
-              className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700"
+              className="flex items-center space-x-2 bg-primary hover:bg-primary/90"
             >
               <span>Siguiente</span>
               <ArrowRight className="h-4 w-4" />
@@ -449,7 +479,7 @@ export default function ReservarPage() {
             <Button
               onClick={handleProceedToPayment}
               disabled={!userDetails.fullName || !userDetails.phone}
-              className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700"
+              className="flex items-center space-x-2 bg-primary hover:bg-primary/90"
             >
               <CreditCard className="h-4 w-4" />
               <span>Proceder al Pago</span>

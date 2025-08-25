@@ -47,7 +47,7 @@ const SedeCard: React.FC<Props> = ({
       className={[
         "border rounded-2xl shadow-md overflow-hidden transition select-none",
         clickable ? "cursor-pointer hover:shadow-lg" : "cursor-default",
-        selected ? "ring-2 ring-green-500" : "",
+        selected ? "ring-2 ring-primary" : "",
         disabled ? "opacity-60 pointer-events-none" : "",
       ].join(" ")}
       onClick={clickable ? () => onSelect?.(sede.id) : undefined}
